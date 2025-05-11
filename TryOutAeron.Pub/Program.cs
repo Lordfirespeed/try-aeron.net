@@ -1,6 +1,7 @@
 ﻿using System;
 using Adaptive.Aeron;
 using Adaptive.Agrona.Concurrent;
+using TryOutAeron.Pub.Extensions;
 
 const string channel = "aeron:ipc?term-length=128k";  // https://aeron.io/docs/cookbook-content/aeron-term-length-msg-size/
 const int streamId = 0x633c20;  // openssl rand -hex 3
@@ -20,5 +21,5 @@ var message = buffer.PutStringWithoutLengthUtf8(
     2mgpu4F5+k7fmWJiPtsh1g==
     """
 );
-publisher.Offer(buffer, 0, message);
+await publisher.OfferAsync(buffer, 0, message);
 Console.WriteLine("Sent message");

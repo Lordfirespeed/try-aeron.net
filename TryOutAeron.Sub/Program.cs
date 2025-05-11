@@ -5,10 +5,9 @@ using System.Threading;
 using Adaptive.Aeron;
 using Adaptive.Aeron.LogBuffer;
 using Adaptive.Agrona;
-using Adaptive.Agrona.Concurrent;
 
-const string channel = "aeron:ipc";
-const int streamId = 42;
+const string channel = "aeron:ipc?term-length=128k";
+const int streamId = 0x633c20;
 
 var handler = HandlerHelper.ToFragmentHandler(PrintMessage);
 

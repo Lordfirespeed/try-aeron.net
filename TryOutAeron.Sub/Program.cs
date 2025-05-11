@@ -10,12 +10,13 @@ const string channel = "aeron:ipc?term-length=128k";
 const int streamId = 0x633c20;
 
 var handler = HandlerHelper.ToFragmentHandler(PrintMessage);
+var fragmentedHandler = new FragmentAssembler(handler);
 
 try {
     using var aeron = Aeron.Connect();
     using var subscriber = aeron.AddSubscription(channel, streamId);
 
-    while (subscriber.Poll(handler, 1) == 0) {
+    while (subscriber.Poll(fragmentedHandler, 16) == 0) {
         Thread.Sleep(10);
     }
 }

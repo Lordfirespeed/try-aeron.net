@@ -1,10 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System;
-using System.Threading;
 using Adaptive.Aeron;
 using Adaptive.Aeron.LogBuffer;
 using Adaptive.Agrona;
+using TryOutAeron.Sub.Concurrent;
+using TryOutAeron.Sub.Extensions;
 
 const string channel = "aeron:ipc?term-length=128k";
 const int streamId = 0x633c20;
@@ -16,9 +17,7 @@ try {
     using var aeron = Aeron.Connect();
     using var subscriber = aeron.AddSubscription(channel, streamId);
 
-    while (subscriber.Poll(fragmentedHandler, 16) == 0) {
-        Thread.Sleep(10);
-    }
+    await subscriber.PollLoopAsync(fragmentedHandler, 1, new DelayIdleStrategy(1));
 }
 catch (Exception e) {
     Console.WriteLine(e);

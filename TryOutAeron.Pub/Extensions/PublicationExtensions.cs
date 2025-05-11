@@ -17,7 +17,7 @@ public static class PublicationExtensions
             if (result >= 0) return;
             switch (result) {
                 case Publication.BACK_PRESSURED:
-                    await Task.Delay(10);
+                    await Task.Delay(1, cancellationToken);
                     continue;
                 case Publication.NOT_CONNECTED:
                     return;

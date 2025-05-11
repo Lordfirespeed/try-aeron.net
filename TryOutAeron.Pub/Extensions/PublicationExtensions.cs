@@ -19,8 +19,12 @@ public static class PublicationExtensions
                     continue;
                 case Publication.NOT_CONNECTED:
                     return;
+                case Publication.ADMIN_ACTION:
+                    throw new InvalidOperationException("Offer failed due to an administrative action");
+                case Publication.CLOSED:
+                    throw new InvalidOperationException("Offer failed due to publication being closed");
                 default:
-                    throw new InvalidOperationException($"Offer failed with result {result}");
+                    throw new InvalidOperationException($"Offer failed with unrecognised failure result {result}");
             }
         }
     }

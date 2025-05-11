@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TryOutAeron.Sub", "TryOutAe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TryOutAeron.Pub", "TryOutAeron.Pub\TryOutAeron.Pub.csproj", "{42DD0063-3D03-4F57-A48C-0A688D3155DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FragmentedPublisher", "FragmentedPublisher\FragmentedPublisher.csproj", "{3FC8E81B-93B8-4150-9B6D-91DF188BA8AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FragmentedSubscriber", "FragmentedSubscriber\FragmentedSubscriber.csproj", "{21831EFB-B25A-4915-BF33-3B002C573B3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{42DD0063-3D03-4F57-A48C-0A688D3155DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42DD0063-3D03-4F57-A48C-0A688D3155DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42DD0063-3D03-4F57-A48C-0A688D3155DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FC8E81B-93B8-4150-9B6D-91DF188BA8AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FC8E81B-93B8-4150-9B6D-91DF188BA8AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FC8E81B-93B8-4150-9B6D-91DF188BA8AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FC8E81B-93B8-4150-9B6D-91DF188BA8AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21831EFB-B25A-4915-BF33-3B002C573B3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21831EFB-B25A-4915-BF33-3B002C573B3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21831EFB-B25A-4915-BF33-3B002C573B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21831EFB-B25A-4915-BF33-3B002C573B3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -40,6 +40,14 @@
 /TryOutAeron*/[Bb]in
 /TryOutAeron*/[Oo]bj
 
+!/FragmentedPublisher
+/FragmentedPublisher/[Bb]in
+/FragmentedPublisher/[Oo]bj
+
+!/FragmentedSubscriber
+/FragmentedSubscriber/[Bb]in
+/FragmentedSubscriber/[Oo]bj
+
 # Explicit exceptions/ignores
 **.user
 **.local

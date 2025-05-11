@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Adaptive.Aeron;
 using Adaptive.Agrona;
@@ -8,9 +9,10 @@ namespace TryOutAeron.Pub.Extensions;
 
 public static class PublicationExtensions
 {
-    private static async ValueTask OfferAsync(Func<long> offerAction)
+    private static async ValueTask OfferAsync(Func<long> offerAction, CancellationToken cancellationToken = default)
     {
         while (true) {
+            if (cancellationToken.IsCancellationRequested) return;
             var result = offerAction();
             if (result >= 0) return;
             switch (result) {
@@ -31,16 +33,18 @@ public static class PublicationExtensions
 
     public static ValueTask OfferAsync(
         this Publication publication,
-        UnsafeBuffer buffer
-    ) => OfferAsync(() => publication.Offer(buffer));
+        UnsafeBuffer buffer,
+        CancellationToken cancellationToken = default
+    ) => OfferAsync(() => publication.Offer(buffer), cancellationToken);
 
     public static ValueTask OfferAsync(
         this Publication publication,
         IDirectBuffer buffer,
         int offset,
         int length,
-        ReservedValueSupplier? reservedValueSupplier = null
-    ) => OfferAsync(() => publication.Offer(buffer, offset, length, reservedValueSupplier));
+        ReservedValueSupplier? reservedValueSupplier = null,
+        CancellationToken cancellationToken = default
+    ) => OfferAsync(() => publication.Offer(buffer, offset, length, reservedValueSupplier), cancellationToken);
 
     public static ValueTask OfferAsync(
         this Publication publication,
@@ -50,7 +54,8 @@ public static class PublicationExtensions
         IDirectBuffer bufferTwo,
         int offsetTwo,
         int lengthTwo,
-        ReservedValueSupplier? reservedValueSupplier = null
+        ReservedValueSupplier? reservedValueSupplier = null,
+        CancellationToken cancellationToken = default
     ) => OfferAsync(() => publication.Offer(
         bufferOne,
         offsetOne,
@@ -59,11 +64,12 @@ public static class PublicationExtensions
         offsetTwo,
         lengthTwo,
         reservedValueSupplier
-    ));
+    ), cancellationToken);
 
     public static ValueTask OfferAsync(
         this Publication publication,
         DirectBufferVector[] vectors,
-        ReservedValueSupplier? reservedValueSupplier = null
-    ) => OfferAsync(() => publication.Offer(vectors, reservedValueSupplier));
+        ReservedValueSupplier? reservedValueSupplier = null,
+        CancellationToken cancellationToken = default
+    ) => OfferAsync(() => publication.Offer(vectors, reservedValueSupplier), cancellationToken);
 }

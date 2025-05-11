@@ -13,11 +13,15 @@ public static class PublicationExtensions
         while (true) {
             var result = offerAction();
             if (result >= 0) return;
-            if (result == Publication.BACK_PRESSURED) {
-                await Task.Delay(10);
-                continue;
+            switch (result) {
+                case Publication.BACK_PRESSURED:
+                    await Task.Delay(10);
+                    continue;
+                case Publication.NOT_CONNECTED:
+                    return;
+                default:
+                    throw new InvalidOperationException($"Offer failed with result {result}");
             }
-            throw new InvalidOperationException($"Offer failed with result {result}");
         }
     }
 

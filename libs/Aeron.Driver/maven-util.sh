@@ -21,6 +21,8 @@ function ResolveClasspath() {
   local version="${3:?missing artifact version argument}"
   local classpath_file="${4:?missing classpath file argument}"
 
+  classpath_file="$(realpath "$classpath_file")"
+
   local group_path
   group_path="$(GroupPathFromGroupName "$group")"
   local artifact_file_stem="$HOME/.m2/repository/$group_path/$artifact/$version/$artifact-$version"

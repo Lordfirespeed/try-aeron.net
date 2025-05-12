@@ -12,9 +12,6 @@ AeronDriverDirectory=$(dirname "$( readlink -f "${BASH_SOURCE[0]:-"$( command -v
 # https://serverfault.com/a/1100799
 Java=$(update-alternatives --list java | grep "$javaVersion")
 
-# 1st positional parameter: aeron directory. Defaults to /dev/shm/aeron-USER
-AeronDir=${1:-"/dev/shm/aeron-$(whoami)"}
-
 function groupPathFromGroupName() {
   local groupName="${1:?missing group name argument}"
   echo "$groupName" | sed 's/\./\//g'
@@ -44,7 +41,7 @@ function ResolveClasspath() {
   if [ ! -e "$artifactJar" ]; then
     GetArtifactFromMaven "$group" "$artifact" "$version"
   fi
-  
+
   echo "Building classpath using Maven..." >&2
   mvn -f "$artifactPom" dependency:build-classpath \
     -Dmdep.includeScope=runtime \
@@ -64,13 +61,15 @@ function CachedResolveClasspath() {
   cat "$classpathFile"
 }
 
-classpath="$(
-  CachedResolveClasspath "$aeronGroup" "$aeronDriverArtifactId" "$aeronDriverArtifactVersion" \
-    "$AeronDriverDirectory/classpath.txt.local"
-)"
+function PrepareMediaDriverClasspath() {
+  mediaDriverClasspath="$(
+    CachedResolveClasspath "$aeronGroup" "$aeronDriverArtifactId" "$aeronDriverArtifactVersion" \
+      "$AeronDriverDirectory/classpath.txt.local"
+  )"
+}
+export -f PrepareMediaDriverClasspath
 
-echo Media Driver Started...
-$Java --add-exports java.base/jdk.internal.misc=ALL-UNNAMED \
-  -cp "$classpath" \
-  -Daeron.dir="$AeronDir" io.aeron.driver.MediaDriver
-echo Media Driver Stopped.
+function JavaWithMediaDriverClasspath() {
+  "$Java" --add-exports java.base/jdk.internal.misc=ALL-UNNAMED -cp "$mediaDriverClasspath" "$@"
+}
+export -f JavaWithMediaDriverClasspath

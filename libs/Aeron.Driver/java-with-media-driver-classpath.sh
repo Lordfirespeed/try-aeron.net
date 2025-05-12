@@ -16,7 +16,7 @@ source "$script_directory/maven-util.sh"
 
 function PrepareMediaDriverClasspath() {
   MEDIA_DRIVER_CLASSPATH="$(
-    CachedResolveClasspath "$AERON_GROUP" "$AERON_DRIVER_ARTIFACT_ID" "$AERON_DRIVER_ARTIFACT_VERSION" \
+    ResolveClasspathAndEnsureExists "$AERON_GROUP" "$AERON_DRIVER_ARTIFACT_ID" "$AERON_DRIVER_ARTIFACT_VERSION" \
       "$script_directory/classpath.txt.local"
   )"
 }

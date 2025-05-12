@@ -8,7 +8,7 @@ aeron_directory=${1:-"/dev/shm/aeron-$(whoami)"}
 
 source "$script_directory/java-with-media-driver-classpath.sh"
 
-PrepareMediaDriverClasspath
+PrepareJavaWithMediaDriverClasspath
 echo Media Driver Started...
 JavaWithMediaDriverClasspath -Daeron.dir="$aeron_directory" io.aeron.driver.MediaDriver
 echo Media Driver Stopped.

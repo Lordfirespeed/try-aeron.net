@@ -14,7 +14,7 @@ java_exe=$(update-alternatives --list java | grep "java-$JAVA_VERSION")
 
 source "$script_directory/maven-util.sh"
 
-function PrepareMediaDriverClasspath() {
+function PrepareJavaWithMediaDriverClasspath() {
   MEDIA_DRIVER_CLASSPATH="$(
     ResolveClasspathAndEnsureExists "$AERON_GROUP" "$AERON_DRIVER_ARTIFACT_ID" "$AERON_DRIVER_ARTIFACT_VERSION" \
       "$script_directory/classpath.txt.local"
